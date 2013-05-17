@@ -1,3 +1,4 @@
+// +build go1.1
 package goctopus
 
 import (
@@ -10,12 +11,12 @@ type Octopus struct {
     c     chan interface{}
 }
 
-// Get the length of the octopus
+// Get how many arms the octopus has.
 func (o *Octopus) Len() int {
     return len(o.cases)
 }
 
-// Run the octopus, get a new channel that everything comes out of
+// Run the octopus, get a new channel that everything comes out of.
 func (o *Octopus) Run() <-chan interface{} {
     o.c = make(chan interface{})
     go o.pump(o.c)
@@ -53,7 +54,7 @@ func verifyChannel(index int, v reflect.Value) {
     }
 }
 
-// Build a new octopus
+// Build a new octopus.
 func New(channels ...interface{}) *Octopus {
     cases := make([]reflect.SelectCase, 0, len(channels))
     for index, c := range channels {
